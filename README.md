@@ -2,7 +2,7 @@
 Clone the repo
 
 ```
-git clone https://github.com/brannon.dotfiles $HOME/.dotfiles
+git clone https://github.com/brannon/dotfiles $HOME/.dotfiles
 ```
 
 For most files, just create a symbolic link to the corresponding file in `$HOME/.dotfiles`
