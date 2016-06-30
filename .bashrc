@@ -1,14 +1,16 @@
 export CLICOLOR=1
 export TERM=xterm
 
-# Configure PYENV
+# Configure PYENV / RBENV
 export PYENV_ROOT="$HOME/.pyenv"
+export RBENV_ROOT="$HOME/.rbenv"
 
 # Configure GOPATH
+export GOROOT="/usr/local/go"
 export GOPATH="$HOME/Source/go"
 export EDITOR=/usr/bin/vim
 
-export PATH="$PATH:$GOPATH/bin:$HOME/bin:$PYENV_ROOT/bin"
+export PATH="$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$PYENV_ROOT/bin:$RBENV_ROOT/bin"
 
 # Configure Git bash prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -17,6 +19,12 @@ export GIT_PS1_SHOWUPSTREAM=true
 
 if [ -f /etc/bash_completion.d/git-prompt ]; then
 	source /etc/bash_completion.d/git-prompt
+fi
+
+export FONTAWESOME=0
+fc-list | grep fontawesome &>/dev/null
+if [[ $? == 0 ]]; then
+    export FONTAWESOME=1
 fi
 
 set_prompt()
@@ -34,6 +42,13 @@ set_prompt()
 	local text_purple='$(tput setaf 5)'
 	local text_cyan='$(tput setaf 6)'
 	local text_white='$(tput setaf 7)'
+    local char_git=''
+    local char_prompt='>'
+
+    if [[ $FONTAWESOME == 1 ]]; then
+        char_git=''
+        char_prompt=''
+    fi
 	
 	local git_dirty=0
 	git diff-index --quiet HEAD &>/dev/null
@@ -53,7 +68,7 @@ set_prompt()
 			PS1+="\[$text_dim\]\[$text_red\]"
 		fi
 
-		PS1+="   [ \[$git_ps1_text\] ]\[$term_reset\]"
+		PS1+=" $char_git  [ \[$git_ps1_text\] ]\[$term_reset\]"
 	fi
 
 	PS1+="\n"
@@ -66,12 +81,17 @@ set_prompt()
 		PS1+="\[$text_dim\]\[$text_white\][\[$text_bold\]\[$text_red\]root\[$text_dim\]\[$text_white\]]\[$term_reset\] "
 	fi
 
-	PS1+="\[$text_dim\]\[$text_white\] \[$term_reset\]"
+	PS1+="\[$text_dim\]\[$text_white\]$char_prompt \[$term_reset\]"
 }
 
 export -fn set_prompt
 export PROMPT_COMMAND='set_prompt'
 
-# Enable PYENV
-eval "$(pyenv init -)"
+# Enable PYENV / RBENV
+if [[ ! -z $(which pyenv) ]]; then
+    eval "$(pyenv init -)"
+fi
+if [[ ! -z $(which rbenv) ]]; then
+    eval "$(rbenv init -)"
+fi
 
