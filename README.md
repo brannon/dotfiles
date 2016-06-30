@@ -18,3 +18,9 @@ The `.gitconfig` is a special case, because there are some machine / os specific
     path = .dotfiles/.gitconfig
 ```
 
+The `.vimrc` assumes that vim-plug is installed (https://github.com/junegunn/vim-plug). Use the command `:PlugInstall` to install the plugins defined in `.vimrc`
+
+```
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+```
+
