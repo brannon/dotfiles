@@ -17,18 +17,26 @@ export GIT_PS1_SHOWDIRTYSTATE=true
 export GIT_PS1_SHOWCOLORHINTS=true
 export GIT_PS1_SHOWUPSTREAM=true
 
-if [ -f /etc/bash_completion.d/git-prompt ]; then
-	source /etc/bash_completion.d/git-prompt
+git_base_path=""
+if [ ! -z $(which brew) ]; then
+    git_base_path="$(brew --prefix git)"
+fi
+
+if [ -f "${git_base_path}/etc/bash_completion.d/git-prompt" ]; then
+    source "${git_base_path}/etc/bash_completion.d/git-prompt"
+elif [ -f "${git_base_path}/etc/bash_completion.d/git-prompt.sh" ]; then
+    source "${git_base_path}/etc/bash_completion.d/git-prompt.sh"
 fi
 
 export FONTAWESOME=0
-fc-list | grep fontawesome &>/dev/null
-if [[ $? == 0 ]]; then
-    export FONTAWESOME=1
+if [[ ! -z $(which fc-list) ]]; then
+    fc-list | grep fontawesome &>/dev/null
+    if [[ $? == 0 ]]; then
+        export FONTAWESOME=1
+    fi
 fi
 
-set_prompt()
-{
+set_prompt() {
 	local last_cmd=$?
 	local bg_blue='$(tput setab 4)'
 	local term_reset='$(tput sgr0)'
@@ -59,7 +67,7 @@ set_prompt()
 	PS1="\n"
 	PS1+="\[$text_cyan\]\w\[$term_reset\]"
 
-	local git_ps1_text=$(__git_ps1 "%s")
+    local git_ps1_text=$(__git_ps1 "%s" 2>&1)
 	
 	if [[ ! -z $git_ps1_text ]]; then
 		if [[ $git_dirty == 0 ]]; then
