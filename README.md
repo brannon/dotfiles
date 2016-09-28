@@ -18,6 +18,18 @@ The `.gitconfig` is a special case, because there are some machine / os specific
     path = .dotfiles/.gitconfig
 ```
 
+Linux credential helper
+
+```
+git config --global credential.helper /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring
+```
+
+OS X credential helper
+
+```
+git config --global credential.helper osxkeychain
+```
+
 The `.vimrc` assumes that vim-plug is installed (https://github.com/junegunn/vim-plug). Use the command `:PlugInstall` to install the plugins defined in `.vimrc`
 
 ```
