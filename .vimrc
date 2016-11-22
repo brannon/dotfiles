@@ -95,14 +95,15 @@ call plug#begin()
 " Plug 'powerline/powerline'
 Plug 'https://github.com/bling/vim-airline'
 " Git plugins
-Plug 'tpope/vim-fugitive'
-Plug 'int3/vim-extradite'
+"Plug 'tpope/vim-fugitive'
+"Plug 'int3/vim-extradite'
 " Theme
 Plug 'fatih/molokai'
 " Golang
 Plug 'fatih/vim-go'
 Plug 'nsf/gocode'
 " Text editing
+Plug 'scrooloose/nerdtree'
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/plasticboy/vim-markdown.git'
 Plug 'https://github.com/avakhov/vim-yaml.git'
@@ -115,4 +116,5 @@ call plug#end()
 au! BufRead,BufNewFile *.json set filetype=json
 au! BufRead,BufNewFile *.go set filetype=go
 
-
+" key mappings
+map <C-n> :NERDTreeToggle<CR>
