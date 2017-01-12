@@ -26,6 +26,8 @@ if [ -f "${git_base_path}/etc/bash_completion.d/git-prompt" ]; then
     source "${git_base_path}/etc/bash_completion.d/git-prompt"
 elif [ -f "${git_base_path}/etc/bash_completion.d/git-prompt.sh" ]; then
     source "${git_base_path}/etc/bash_completion.d/git-prompt.sh"
+else
+    echo -e "Warning: Git bash completion script not found!"
 fi
 
 export FONTAWESOME=0
