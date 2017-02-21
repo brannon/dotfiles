@@ -10,7 +10,32 @@ export GOROOT="/usr/local/go"
 export GOPATH="$HOME/Source/go"
 export EDITOR=/usr/bin/vim
 
-export PATH="$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$PYENV_ROOT/bin:$RBENV_ROOT/bin"
+if [[ -d "$GOROOT" ]]; then
+    export PATH="$PATH:$GOROOT/bin"
+fi
+
+if [[ -d "$GOPATH" ]]; then
+    export PATH="$PATH:$GOPATH/bin"
+fi
+
+if [[ -d "$HOME/bin" ]]; then
+    export PATH="$PATH:$HOME/bin"
+fi
+
+if [[ -d "$PYENV_ROOT/bin" ]]; then
+    export PATH="$PATH:$PYENV_ROOT/bin"
+fi
+
+if [[ -d "$RBENV_ROOT/bin" ]]; then
+    export PATH="$PATH:$RBENV_ROOT/bin"
+fi
+
+if [[ -d "$HOME/Library/Android/sdk" ]]; then
+    export ANDROID_HOME="$HOME/Library/Android/sdk"
+    export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
+fi
+
+#export PATH="$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/bin:$PYENV_ROOT/bin:$RBENV_ROOT/bin"
 
 # Configure Git bash prompt
 export GIT_PS1_SHOWDIRTYSTATE=true
@@ -34,6 +59,10 @@ export FONTAWESOME=0
 if [[ ! -z $(which fc-list) ]]; then
     fc-list | grep fontawesome &>/dev/null
     if [[ $? == 0 ]]; then
+        export FONTAWESOME=1
+    fi
+elif [[ -d $HOME/Library/Fonts ]]; then
+    if [[ -f $HOME/Library/Fonts/FontAwesome.otf ]]; then
         export FONTAWESOME=1
     fi
 fi
