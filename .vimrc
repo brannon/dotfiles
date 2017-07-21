@@ -27,7 +27,7 @@ set scrolloff=7
 " Statusline
 " https://github.com/pengwynn/dotfiles/blob/master/vim/vimrc.symlink#L160
 set statusline=                                     " Override default
-set statusline+=%1*%{fugitive#statusline()[4:-2]}%* " Show fugitive git info
+"set statusline+=%1*%{fugitive#statusline()[4:-2]}%* " Show fugitive git info
 set statusline+=%2*\ %f\ %m\ %r%*                   " Show filename/path
 set statusline+=%3*%=%*                             " Set right-side status info after this line
 set statusline+=%4*%l/%L:%v%*                       " Set <line number>/<total lines>:<column>
@@ -87,6 +87,9 @@ let g:ctrlp_map = '<c-p>'
 
 " vim-markdown
 let g:vim_markdown_folding_disabled=1
+
+" vim-json
+let g:vim_json_syntax_conceal = 0
 
 " vim-plug (https://github.com/junegunn/vim-plug)
 

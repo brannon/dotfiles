@@ -123,7 +123,13 @@ set_prompt() {
 	PS1+="\[$text_dim\]\[$text_white\]$char_prompt \[$term_reset\]"
 }
 
+set_title() {
+    local TITLE=$1
+    echo -ne "\033]0;$TITLE\007"
+}
+
 export -fn set_prompt
+export -fn set_title
 export PROMPT_COMMAND='set_prompt'
 
 # Enable PYENV / RBENV
