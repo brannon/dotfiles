@@ -128,8 +128,14 @@ set_title() {
     echo -ne "\033]0;$TITLE\007"
 }
 
+epoch() {
+    date +%s
+}
+
+export -fn epoch
 export -fn set_prompt
 export -fn set_title
+export HISTCONTROL=ignoreboth
 export PROMPT_COMMAND='set_prompt'
 
 # Enable PYENV / RBENV
