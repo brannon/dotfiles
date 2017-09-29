@@ -1,5 +1,31 @@
 " Most of this config was lifted from http://jsdelfino.blogspot.com/2010/11/my-vi-configuration-file.html
 
+" vim-plug (https://github.com/junegunn/vim-plug)
+
+call plug#begin()
+" Status bar
+" Plug 'powerline/powerline'
+Plug 'https://github.com/bling/vim-airline'
+" Git plugins
+"Plug 'tpope/vim-fugitive'
+"Plug 'int3/vim-extradite'
+" Theme
+Plug 'fatih/molokai'
+" Golang
+Plug 'fatih/vim-go'
+Plug 'nsf/gocode'
+" Text editing
+Plug 'scrooloose/nerdtree'
+Plug 'godlygeek/tabular'
+Plug 'https://github.com/plasticboy/vim-markdown.git'
+Plug 'https://github.com/avakhov/vim-yaml.git'
+Plug 'pangloss/vim-javascript'
+Plug 'beautify-web/js-beautify'
+Plug 'elzr/vim-json'
+" File browsers
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+call plug#end()
+
 " vi-improved mode
 set nocompatible
 filetype on
@@ -90,30 +116,6 @@ let g:vim_markdown_folding_disabled=1
 
 " vim-json
 let g:vim_json_syntax_conceal = 0
-
-" vim-plug (https://github.com/junegunn/vim-plug)
-
-call plug#begin()
-" Status bar
-" Plug 'powerline/powerline'
-Plug 'https://github.com/bling/vim-airline'
-" Git plugins
-"Plug 'tpope/vim-fugitive'
-"Plug 'int3/vim-extradite'
-" Theme
-Plug 'fatih/molokai'
-" Golang
-Plug 'fatih/vim-go'
-Plug 'nsf/gocode'
-" Text editing
-Plug 'scrooloose/nerdtree'
-Plug 'godlygeek/tabular'
-Plug 'https://github.com/plasticboy/vim-markdown.git'
-Plug 'https://github.com/avakhov/vim-yaml.git'
-Plug 'pangloss/vim-javascript'
-Plug 'beautify-web/js-beautify'
-Plug 'elzr/vim-json'
-call plug#end()
 
 " autocommands
 au! BufRead,BufNewFile *.json set filetype=json

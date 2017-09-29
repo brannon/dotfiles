@@ -146,3 +146,5 @@ if [[ ! -z $(which rbenv) ]]; then
     eval "$(rbenv init -)"
 fi
 
+
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
