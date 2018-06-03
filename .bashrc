@@ -104,6 +104,11 @@ set_prompt() {
     fi
 
     PS1="\n"
+
+    if [[ "$SSH_TTY" != "" ]]; then
+        PS1+="\[$text_purple\]<$(hostname)>\[$term_reset\] "
+    fi
+
     PS1+="\[$text_cyan\]\w\[$term_reset\]"
 
     local git_ps1_text=$(__git_ps1 "%s" 2>&1)
