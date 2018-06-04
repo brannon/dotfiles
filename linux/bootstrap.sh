@@ -15,10 +15,16 @@ text_purple="$(tput setaf 5)"
 text_cyan="$(tput setaf 6)"
 text_white="$(tput setaf 7)"
 
-step() {
-    local MSG=$1
+info() {
+    local MSG
+    MSG=$1
+    echo -e "${text_yellow}==> $MSG${term_reset}"
+}
 
-    echo -e "${text_purple}» $MSG ${term_reset}"
+step() {
+    local MSG
+    MSG=$1
+    echo -e "${text_purple}»\n» $MSG\n»${term_reset}"
 }
 
 SUDO() {
@@ -32,32 +38,55 @@ SUDO() {
 step "Installing basic packages"
 
 SUDO apt-get update
-SUDO apt-get install -y curl git jq unzip vim wget zip
+SUDO apt-get install -y ca-certificates apt-transport-https curl dnsutils git jq software-properties-common unzip vim wget zip
 
 if [[ ! -d $HOME/.dotfiles ]]; then
     step "Cloning dotfiles repo"
     git clone https://github.com/brannon/dotfiles $HOME/.dotfiles
 
-    step "Linking .bashrc"
+    info "Linking .bashrc"
     [ -f $HOME/.bashrc ] && mv $HOME/.bashrc $HOME/.bashrc.orig
     ln -s $HOME/.dotfiles/.bashrc $HOME/.bashrc
 
-    step "Update .gitconfig"
+    info "Update .gitconfig"
     git config --global include.path $HOME/.dotfiles/.gitconfig
 
     if [[ -z "$(git config --global --get user.email)" ]]; then
-        read -p "Enter the email to use for Git commits: " GIT_EMAIL
+        echo -en "${color_yellow}Enter the email to use for Git commits: "
+        read GIT_EMAIL
         git config --global user.email "$GIT_EMAIL"
     fi
 fi
 
-step "Installing development packages"
+step "Configuring Docker"
 
-SUDO apt-get install -y build-essential python2.7 python3.5 sqlite3
+if [[ -z "$(which docker)" ]]; then
+    info "Add Docker package repository"
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | SUDO apt-key add -
+    SUDO add-apt-repository "\"deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable\""
+    SUDO apt-get update
+fi
+info "Install Docker CE"
+SUDO apt-get install -y docker-ce
+SUDO usermod -aG docker "$(whoami)"
 
-#step "Installing Golang"
+step "Installing development tools"
 
-#step "Install NodeJS"
+info "Install build tools"
+SUDO apt-get install -y build-essential
+
+info "Install Python"
+SUDO apt-get install -y python2.7 python3.5
+
+info "Install misc tools"
+SUDO apt-get install -y sqlite3
+
+info "Installing Golang"
+curl https://dl.google.com/go/go1.10.2.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
+
+info "Install NodeJS"
+curl -sL https://deb.nodesource.com/setup_10.x | SUDO bash -
+SUDO apt-get install -y nodejs
 
 echo -e "${text_green}¤ Bootstrap complete${term_reset}"
 
