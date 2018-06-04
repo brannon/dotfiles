@@ -52,8 +52,8 @@ if [[ ! -d $HOME/.dotfiles ]]; then
     git config --global include.path $HOME/.dotfiles/.gitconfig
 
     if [[ -z "$(git config --global --get user.email)" ]]; then
-        echo -en "${color_yellow}Enter the email to use for Git commits: "
-        read GIT_EMAIL
+        echo -en "${color_yellow}Enter the email to use for Git commits: ${term_reset}"
+        read -e GIT_EMAIL
         git config --global user.email "$GIT_EMAIL"
     fi
 fi
