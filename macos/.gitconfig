@@ -1,0 +1,20 @@
+[user]
+	name = brannon
+
+[core]
+	editor = vim
+
+[color]
+	ui = true
+
+[push]
+	default = simple
+
+[alias]
+	st = status -sb
+	top = log -1
+	last5 = log -5
+	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
+	who = shortlog
+	hist = log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
+
