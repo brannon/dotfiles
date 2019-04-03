@@ -3,14 +3,15 @@
 " vim-plug (https://github.com/junegunn/vim-plug)
 
 call plug#begin()
+" Theme
+Plug 'fatih/molokai'
+Plug 'cormacrelf/vim-colors-github'
 " Status bar
 " Plug 'powerline/powerline'
 Plug 'https://github.com/bling/vim-airline'
 " Git plugins
 "Plug 'tpope/vim-fugitive'
 "Plug 'int3/vim-extradite'
-" Theme
-Plug 'fatih/molokai'
 " Golang
 Plug 'fatih/vim-go'
 Plug 'nsf/gocode'
@@ -49,6 +50,9 @@ set title
 set ruler
 set number
 set scrolloff=7
+
+colorscheme github
+let g:airline_theme = "github"
 
 " Statusline
 " https://github.com/pengwynn/dotfiles/blob/master/vim/vimrc.symlink#L160

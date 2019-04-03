@@ -2,10 +2,11 @@
 
 " vim-plug (https://github.com/junegunn/vim-plug)
 call plug#begin()
-" Status bar
-Plug 'https://github.com/bling/vim-airline'
 " Theme
 Plug 'fatih/molokai'
+Plug 'cormacrelf/vim-colors-github'
+" Status bar
+Plug 'https://github.com/bling/vim-airline'
 " Text editing
 Plug 'godlygeek/tabular'
 Plug 'https://github.com/plasticboy/vim-markdown.git'
@@ -41,6 +42,8 @@ set title
 set ruler
 set number
 set scrolloff=7
+
+let g:airline_theme = "github"
 
 " Statusline
 " https://github.com/pengwynn/dotfiles/blob/master/vim/vimrc.symlink#L160
