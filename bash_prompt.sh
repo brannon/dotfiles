@@ -53,6 +53,7 @@ render_git() {
 
         echo -n "$(set_fore_color $PROMPT_GIT_COLOR)"
         echo -n "$PROMPT_GIT_PREFIX"
+        echo -n "$(clear_color)"
 
         if [[ $git_dirty == 0 ]]; then
             echo -n "$(set_fore_color $PROMPT_GITSTATUS_CLEAN_COLOR)"
