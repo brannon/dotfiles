@@ -52,7 +52,7 @@ render_git() {
         fi
 
         echo -n "$(set_fore_color $PROMPT_GIT_COLOR)"
-        echo -n "$PROMPT_GIT_PREFIX"
+        echo -ne "$PROMPT_GIT_PREFIX"
         echo -n "$(clear_color)"
 
         if [[ $git_dirty == 0 ]]; then
@@ -61,13 +61,13 @@ render_git() {
             echo -n "$(set_fore_color $PROMPT_GITSTATUS_DIRTY_COLOR)"
         fi
 
-        echo -n "$PROMPT_GITSTATUS_PREFIX"
+        echo -ne "$PROMPT_GITSTATUS_PREFIX"
         echo -n "$git_ps1_text"
-        echo -n "$PROMPT_GITSTATUS_SUFFIX"
+        echo -ne "$PROMPT_GITSTATUS_SUFFIX"
         echo -n "$(clear_color)"
 
         echo -n "$(set_fore_color $PROMPT_GIT_COLOR)"
-        echo -n "$PROMPT_GIT_SUFFIX"
+        echo -ne "$PROMPT_GIT_SUFFIX"
         echo -n "$(clear_color)"
     fi
 }
@@ -82,9 +82,9 @@ render_host() {
     esac
 
     echo -n "$(set_fore_color $PROMPT_HOST_COLOR)"
-    echo -n "$PROMPT_HOST_PREFIX"
-    echo -n "$(hostname)"
-    echo -n "$PROMPT_HOST_SUFFIX"
+    echo -ne "$PROMPT_HOST_PREFIX"
+    echo -n "\h"
+    echo -ne "$PROMPT_HOST_SUFFIX"
     echo -n "$(clear_color)"
 }
 
@@ -106,25 +106,25 @@ render_lastcmd() {
         last_cmd_text="last exit code was $1"
     fi
 
-    echo -n "$PROMPT_LASTCMD_PREFIX"
+    echo -ne "$PROMPT_LASTCMD_PREFIX"
     echo -n "$last_cmd_text"
-    echo -n "$PROMPT_LASTCMD_SUFFIX"
+    echo -ne "$PROMPT_LASTCMD_SUFFIX"
     echo -n "$(clear_color)"
 }
 
 render_prompt() {
     echo -n "$(set_fore_color $PROMPT_CHAR_COLOR)"
-    echo -n "$PROMPT_CHAR_PREFIX"
-    echo -n "$PROMPT_CHAR_SYMBOL"
-    echo -n "$PROMPT_CHAR_SUFFIX"
+    echo -ne "$PROMPT_CHAR_PREFIX"
+    echo -ne "$PROMPT_CHAR_SYMBOL"
+    echo -ne "$PROMPT_CHAR_SUFFIX"
     echo -n "$(clear_color)"
 }
 
 render_pwd() {
     echo -n "$(set_fore_color $PROMPT_PWD_COLOR)"
-    echo -n "$PROMPT_PWD_PREFIX"
+    echo -ne "$PROMPT_PWD_PREFIX"
     echo -n "\w"
-    echo -n "$PROMPT_PWD_SUFFIX"
+    echo -ne "$PROMPT_PWD_SUFFIX"
     echo -n "$(clear_color)"
 }
 
@@ -139,15 +139,15 @@ render_user() {
 
     if [[ $EUID == 0 ]]; then
         echo -n "$(set_fore_color $PROMPT_USER_ADMIN_COLOR)"
-        echo -n "$PROMPT_USER_ADMIN_PREFIX"
+        echo -ne "$PROMPT_USER_ADMIN_PREFIX"
         echo -n "$(whoami)"
-        echo -n "$PROMPT_USER_ADMIN_SUFFIX"
+        echo -ne "$PROMPT_USER_ADMIN_SUFFIX"
         echo -n "$(clear_color)"
     else
         echo -n "$(set_fore_color $PROMPT_USER_COLOR)"
-        echo -n "$PROMPT_USER_PREFIX"
+        echo -ne "$PROMPT_USER_PREFIX"
         echo -n "$(whoami)"
-        echo -n "$PROMPT_USER_SUFFIX"
+        echo -ne "$PROMPT_USER_SUFFIX"
         echo -n "$(clear_color)"
     fi
 }
