@@ -1,6 +1,11 @@
 export CLICOLOR=1
 export TERM=xterm-256color
 
+# Configure ls colors
+if [ "$(uname)" == "Darwin" ]; then
+    export LSCOLORS=Exfxcxdxbxegedabagacad
+fi
+
 [ -f $HOME/.dotfiles/bash_prompt.sh ] && source $HOME/.dotfiles/bash_prompt.sh
 
 # Configure bash prompt
