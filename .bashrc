@@ -1,9 +1,13 @@
-export CLICOLOR=1
 export TERM=xterm-256color
 
 # Configure ls colors
 if [ "$(uname)" == "Darwin" ]; then
     export LSCOLORS=Exfxcxdxbxegedabagacad
+    export CLICOLOR=1
+fi
+
+if [[ ! `alias` =~ "ls" ]]; then
+    alias "ls=ls --color=auto"
 fi
 
 [ -f $HOME/.dotfiles/bash_prompt.sh ] && source $HOME/.dotfiles/bash_prompt.sh
