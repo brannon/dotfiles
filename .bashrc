@@ -88,6 +88,10 @@ if [[ -d "$HOME/Library/Android/sdk" ]]; then
     export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
 fi
 
+if [[ -d "/usr/local/opt/curl-openssl/bin" ]]; then
+    export PATH="/usr/local/opt/curl-openssl/bin:$PATH"
+fi
+
 if [[ -d "/usr/local/opt/curl/bin" ]]; then
     export PATH="/usr/local/opt/curl/bin:$PATH"
 fi
