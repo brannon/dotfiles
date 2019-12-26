@@ -223,9 +223,11 @@ git_clone_dotfiles_repo $DOTFILES_PATH
 file_backup $HOME/.bashrc
 file_backup $HOME/.vimrc
 file_backup $HOME/.inputrc
+file_backup $HOME/.zshrc
 file_link $DOTFILES_PATH/.bashrc $HOME/.bashrc
 file_link $DOTFILES_PATH/macos/.vimrc $HOME/.vimrc
 file_link $DOTFILES_PATH/macos/.inputrc $HOME/.inputrc
+file_link $DOTFILES_PATH/macos/.zshrc $HOME/.zshrc
 git_config_include $DOTFILES_PATH/macos/.gitconfig
 
 operation "Install vim plugin manager"
