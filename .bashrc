@@ -6,8 +6,10 @@ if [ "$(uname)" == "Darwin" ]; then
     export CLICOLOR=1
 fi
 
-if [[ ! `alias` =~ "ls" ]]; then
-    alias "ls=ls --color=auto"
+if [ "$(uname)" != "Darwin" ]; then
+    if [[ ! `alias` =~ "ls" ]]; then
+        alias "ls=ls --color=auto"
+    fi
 fi
 
 [ -f $HOME/.dotfiles/bash_prompt.sh ] && source $HOME/.dotfiles/bash_prompt.sh

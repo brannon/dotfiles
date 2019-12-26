@@ -216,7 +216,7 @@ brew_bootstrap
 brew_update
 
 operation_group "Install basic packages"
-brew_install curl git jq unzip vim wget zip
+brew_install curl-openssl git jq rbenv ripgrep tree unzip vim wget zip
 
 operation_group "Configure dotfiles"
 git_clone_dotfiles_repo $DOTFILES_PATH
