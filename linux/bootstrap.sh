@@ -239,34 +239,34 @@ apt_install sqlite3
 
 operation "Install Golang"
 if [[ -z $(which go) ]]; then
-    curl https://dl.google.com/go/go1.12.5.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
+    curl https://dl.google.com/go/go1.13.7.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
     operation_check_exit $?
 else
     ok "Already installed"
 fi
 
 operation "Install NodeJS"
-curl -sL https://deb.nodesource.com/setup_10.x | SUDO bash -
+curl -sL https://deb.nodesource.com/setup_12.x | SUDO bash -
 operation_check_exit $?
 SUDO apt-get install -y nodejs
 operation_check_exit $?
 
-operation "Configuring Docker"
-
-if [[ -z "$(which docker)" ]]; then
-    info "Add Docker package repository"
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | SUDO apt-key add -
-    operation_check_exit $?
-    SUDO add-apt-repository "\"deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable\""
-    operation_check_exit $?
-    SUDO apt-get update
-    operation_check_exit $?
-fi
-info "Install Docker CE"
-SUDO apt-get install -y docker-ce
-operation_check_exit $?
-SUDO usermod -aG docker "$(whoami)"
-operation_check_exit $?
+#operation "Configuring Docker"
+#
+#if [[ -z "$(which docker)" ]]; then
+#    info "Add Docker package repository"
+#    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | SUDO apt-key add -
+#    operation_check_exit $?
+#    SUDO add-apt-repository "\"deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable\""
+#    operation_check_exit $?
+#    SUDO apt-get update
+#    operation_check_exit $?
+#fi
+#info "Install Docker CE"
+#SUDO apt-get install -y docker-ce
+#operation_check_exit $?
+#SUDO usermod -aG docker "$(whoami)"
+#operation_check_exit $?
 
 source $HOME/.bashrc
 
