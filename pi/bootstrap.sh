@@ -238,7 +238,7 @@ apt_install sqlite3
 
 operation "Install Golang"
 if [[ -z $(which go) ]]; then
-    curl https://dl.google.com/go/go1.11.4.linux-armv6l.tar.gz | SUDO tar -C /usr/local -xzf -
+    curl https://dl.google.com/go/go1.14.linux-armv6l.tar.gz | SUDO tar -C /usr/local -xzf -
     operation_check_exit $?
 else
     ok "Already installed"
