@@ -237,9 +237,11 @@ apt_install python2.7 python3.5
 # Install misc tools
 apt_install sqlite3
 
-operation "Install Golang"
-if [[ -z $(which go) ]]; then
-    curl https://dl.google.com/go/go1.13.7.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
+GO_VERSION=1.14.4
+operation "Install Golang $GO_VERSION"
+if [[ -z $(go version | grep "$GO_VERSION") ]]; then
+    [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
+    curl https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
     operation_check_exit $?
 else
     ok "Already installed"
