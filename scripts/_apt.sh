@@ -23,6 +23,20 @@ apt_install() {
     done
 }
 
+apt_install_optional() {
+    local DESC
+    local PACKAGES
+    DESC="$1"
+    shift
+    PACKAGES="$*"
+
+    if [[ $(prompt_yn "Install $DESC ($PACKAGES)?") == "y" ]]; then
+        apt_install $PACKAGES
+    else
+        ok "Optional package(s) skipped"
+    fi
+}
+
 apt_update() {
     SUDO apt-get update
     operation_check_exit $?

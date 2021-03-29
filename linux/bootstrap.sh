@@ -1,6 +1,28 @@
 #!/bin/bash
 DOTFILES_PATH=$HOME/.dotfiles
 
+#begin_include("scripts/_env.sh")
+######################################################################
+#
+# env setup
+#
+######################################################################
+
+# ARCH (x86_64, arm)
+if [[ ! -z $(which uname) ]]; then
+    MACHINE=$(uname -m)
+    case $MACHINE in
+        arm*)
+            ARCH=arm
+            ;;
+        *)
+            ARCH=$MACHINE
+            ;;
+    esac
+fi
+
+#echo "ENV: detected ARCH $ARCH"
+#end_include()
 
 #begin_include("scripts/_output.sh")
 ######################################################################
@@ -72,6 +94,13 @@ operation_group() {
     echo -e "\n${text_light_cyan}»\n» $1\n»${term_reset}"
 }
 
+prompt_yn() {
+    echo -n -e "${text_light_white}$1 [yn]${term_reset}" >$(tty)
+    read -n 1 ANSWER
+    echo "" >$(tty)
+    echo $ANSWER
+}
+
 warn() {
     echo -e "${text_yellow}WARN: $1${term_reset}"
 }
@@ -121,6 +150,20 @@ apt_install() {
             warn "Status of package '$PACKAGE' unknown. Run 'dpkg-query --status $PACKAGE' to see status."
         fi
     done
+}
+
+apt_install_optional() {
+    local DESC
+    local PACKAGES
+    DESC="$1"
+    shift
+    PACKAGES="$*"
+
+    if [[ $(prompt_yn "Install $DESC ($PACKAGES)?") == "y" ]]; then
+        apt_install $PACKAGES
+    else
+        ok "Optional package(s) skipped"
+    fi
 }
 
 apt_update() {
@@ -232,12 +275,20 @@ operation_check_exit $? $VIM_IGNORED_EXIT
 operation_group "Install development tools"
 # Install build tools
 apt_install build-essential
+
+if [[ $ARCH != "arm" ]]; then
+    # Install ARM cross-compiler
+    apt_install_optional "ARM cross-compiler toolchain" gcc-arm-linux-gnueabihf
+fi
+
 # Install Python
-apt_install python2.7 python3.5
+apt_install python2.7
+apt_install_optional "Python 3.5" python3.5
+
 # Install misc tools
 apt_install sqlite3
 
-GO_VERSION=1.14.4
+GO_VERSION=1.16.2
 operation "Install Golang $GO_VERSION"
 if [[ -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go

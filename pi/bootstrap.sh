@@ -71,6 +71,13 @@ operation_group() {
     echo -e "\n${text_light_cyan}»\n» $1\n»${term_reset}"
 }
 
+prompt_yn() {
+    echo -n -e "${text_light_white}$1 [yn]${term_reset}" >$(tty)
+    read -n 1 ANSWER
+    echo "" >$(tty)
+    echo $ANSWER
+}
+
 warn() {
     echo -e "${text_yellow}WARN: $1${term_reset}"
 }
@@ -120,6 +127,20 @@ apt_install() {
             warn "Status of package '$PACKAGE' unknown. Run 'dpkg-query --status $PACKAGE' to see status."
         fi
     done
+}
+
+apt_install_optional() {
+    local DESC
+    local PACKAGES
+    DESC="$1"
+    shift
+    PACKAGES="$*"
+
+    if [[ $(prompt_yn "Install $DESC ($PACKAGES)?") == "y" ]]; then
+        apt_install $PACKAGES
+    else
+        ok "Optional package(s) skipped"
+    fi
 }
 
 apt_update() {

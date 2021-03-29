@@ -71,6 +71,13 @@ operation_group() {
     echo -e "\n${text_light_cyan}»\n» $1\n»${term_reset}"
 }
 
+prompt_yn() {
+    echo -n -e "${text_light_white}$1 [yn]${term_reset}" >$(tty)
+    read -n 1 ANSWER
+    echo "" >$(tty)
+    echo $ANSWER
+}
+
 warn() {
     echo -e "${text_yellow}WARN: $1${term_reset}"
 }
