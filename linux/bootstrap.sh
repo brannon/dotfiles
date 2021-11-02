@@ -288,7 +288,7 @@ apt_install_optional "Python 3.5" python3.5
 # Install misc tools
 apt_install sqlite3
 
-GO_VERSION=1.16.2
+GO_VERSION=1.17.2
 operation "Install Golang $GO_VERSION"
 if [[ -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
@@ -299,7 +299,7 @@ else
 fi
 
 operation "Install NodeJS"
-curl -sL https://deb.nodesource.com/setup_12.x | SUDO bash -
+curl -sL https://deb.nodesource.com/setup_16.x | SUDO bash -
 operation_check_exit $?
 SUDO apt-get install -y nodejs
 operation_check_exit $?
