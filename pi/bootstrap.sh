@@ -253,13 +253,13 @@ operation_group "Install development tools"
 # Install build tools
 apt_install build-essential
 # Install Python
-apt_install python2.7 python3.5
+apt_install python2.7
 # Install misc tools
 apt_install sqlite3
 
 operation "Install Golang"
 if [[ -z $(which go) ]]; then
-    curl https://dl.google.com/go/go1.14.linux-armv6l.tar.gz | SUDO tar -C /usr/local -xzf -
+    curl https://dl.google.com/go/go1.17.4.linux-armv6l.tar.gz | SUDO tar -C /usr/local -xzf -
     operation_check_exit $?
 else
     ok "Already installed"
