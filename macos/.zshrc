@@ -82,6 +82,11 @@ if [[ "$(uname)" == "Darwin" ]]; then
     export CLICOLOR=1
 fi
 
+# Ensure brew is in the path
+if [[ -d "/opt/homebrew/bin" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+fi
+
 # Configure PYENV / RBENV
 export PYENV_ROOT="$HOME/.pyenv"
 export RBENV_ROOT="$HOME/.rbenv"

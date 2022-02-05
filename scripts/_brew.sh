@@ -8,6 +8,8 @@ brew_bootstrap() {
     operation "Ensure Homebrew is installed"
     if [ -z $(which brew) ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        # Ensure brew is in the path
+        eval "$(/opt/homebrew/bin/brew shellenv)"
         operation_check_exit $?
     else
         ok

@@ -114,6 +114,8 @@ brew_bootstrap() {
     operation "Ensure Homebrew is installed"
     if [ -z $(which brew) ]; then
         /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        # Ensure brew is in the path
+        eval "$(/opt/homebrew/bin/brew shellenv)"
         operation_check_exit $?
     else
         ok
@@ -218,12 +220,16 @@ file_link() {
 }
 #end_include()
 
+operation_group "Configure oh-my-zsh"
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+# TODO: install spaceship theme: https://spaceship-prompt.sh/getting-started/#installing
+
 operation_group "Configure Homebrew"
 brew_bootstrap
 brew_update
 
 operation_group "Install basic packages"
-brew_install curl-openssl git jq rbenv ripgrep tree unzip vim wget zip
+brew_install curl git jq rbenv ripgrep tree unzip vim wget zip
 
 operation_group "Configure dotfiles"
 git_clone_dotfiles_repo $DOTFILES_PATH
