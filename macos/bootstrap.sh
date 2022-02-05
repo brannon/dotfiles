@@ -113,7 +113,7 @@ SUDO() {
 brew_bootstrap() {
     operation "Ensure Homebrew is installed"
     if [ -z $(which brew) ]; then
-        /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
         operation_check_exit $?
     else
         ok
