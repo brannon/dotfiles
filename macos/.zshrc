@@ -141,7 +141,7 @@ if [[ ! -z $(whence -p rbenv) ]]; then
     eval "$(rbenv init -)"
 fi
 
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -178,4 +178,3 @@ export SPACESHIP_EXIT_CODE_PREFIX="\nwarning: last exit code was"
 export SPACESHIP_EXIT_CODE_SUFFIX="\n"
 export SPACESHIP_EXIT_CODE_SYMBOL=" "
 export SPACESHIP_EXIT_CODE_COLOR="yellow"
-
