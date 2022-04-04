@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python3
 import os
 import re
 import sys
@@ -24,7 +24,7 @@ def build_script(script_path, base_path):
 
 
 def fatal_error(msg):
-    print "ERROR: " + msg
+    print("ERROR: " + msg)
     sys.exit(1)
 
 

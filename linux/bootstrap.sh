@@ -245,6 +245,24 @@ git_config_include() {
 }
 #end_include()
 
+INTERACTIVE=1
+CLONE=1
+while [ $# -gt 0 ]; do
+    case "$1" in
+        --non-interactive)
+            INTERACTIVE=0
+            ;;
+        --no-clone)
+            CLONE=0
+            ;;
+        *)
+            echo "Unknown argument: $1"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
 operation_group "Configure packages"
 #apt_update
 
@@ -252,7 +270,9 @@ operation_group "Install basic packages"
 apt_install ca-certificates curl dnsutils git jq software-properties-common unzip vim wget zip
 
 operation_group "Configure dotfiles"
-git_clone_dotfiles_repo $DOTFILES_PATH
+if [[ $CLONE == 1 ]]; then
+    git_clone_dotfiles_repo $DOTFILES_PATH
+fi
 file_backup $HOME/.bashrc
 file_backup $HOME/.vimrc
 file_link $DOTFILES_PATH/.bashrc $HOME/.bashrc
@@ -272,23 +292,18 @@ VIM_IGNORED_EXIT=(1)
 vim -T dumb -es -c ":PlugInstall" -c ":q" -c ":q"
 operation_check_exit $? $VIM_IGNORED_EXIT
 
+######################################################################
+
 operation_group "Install development tools"
 # Install build tools
 apt_install build-essential
-
-if [[ $ARCH != "arm" ]]; then
-    # Install ARM cross-compiler
-    apt_install_optional "ARM cross-compiler toolchain" gcc-arm-linux-gnueabihf
-fi
-
 # Install Python
 apt_install python2.7
-apt_install_optional "Python 3.5" python3.5
-
 # Install misc tools
 apt_install sqlite3
 
-GO_VERSION=1.17.2
+# Install Go
+GO_VERSION=1.18
 operation "Install Golang $GO_VERSION"
 if [[ -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
@@ -298,28 +313,33 @@ else
     ok "Already installed"
 fi
 
-operation "Install NodeJS"
-curl -sL https://deb.nodesource.com/setup_16.x | SUDO bash -
-operation_check_exit $?
-SUDO apt-get install -y nodejs
-operation_check_exit $?
+######################################################################
 
-#operation "Configuring Docker"
-#
-#if [[ -z "$(which docker)" ]]; then
-#    info "Add Docker package repository"
-#    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | SUDO apt-key add -
-#    operation_check_exit $?
-#    SUDO add-apt-repository "\"deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable\""
-#    operation_check_exit $?
-#    SUDO apt-get update
-#    operation_check_exit $?
-#fi
-#info "Install Docker CE"
-#SUDO apt-get install -y docker-ce
-#operation_check_exit $?
-#SUDO usermod -aG docker "$(whoami)"
-#operation_check_exit $?
+operation_group "Install optional packages"
+if [[ $INTERACTIVE == 1 ]]; then
+    # ARM cross-compiler (for non-ARM environments)
+    if [[ $ARCH != "arm" ]]; then
+        if [[ $(prompt_yn "Install ARM cross-compiler toolchain?") == "y" ]]; then
+            apt_install gcc-arm-linux-gnueabihf
+        fi
+    fi
+
+    # NodeJS
+    if [[ $(prompt_yn "Install NodeJS 16.x?") == "y" ]]; then
+        operation "Install NodeJS"
+        curl -sL https://deb.nodesource.com/setup_16.x | SUDO bash -
+        operation_check_exit $?
+        SUDO apt-get install -y nodejs
+        operation_check_exit $?
+    fi
+
+    # Python 3.9
+    if [[ $(prompt_yn "Install Python 3.9?") == "y" ]]; then
+        apt_install "Python 3.9" python3.9
+    fi
+else
+    warn "Skipped (non-interactive)"
+fi
 
 source $HOME/.bashrc
 
