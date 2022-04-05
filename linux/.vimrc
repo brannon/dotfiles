@@ -13,7 +13,8 @@ Plug 'https://github.com/bling/vim-airline'
 "Plug 'tpope/vim-fugitive'
 "Plug 'int3/vim-extradite'
 " Golang
-Plug 'fatih/vim-go'
+" NOTE: vim-go does not work with the standard vim included in some Linux distros. Disable the plugin for now.
+"Plug 'fatih/vim-go'
 Plug 'nsf/gocode'
 " Text editing
 Plug 'scrooloose/nerdtree'
