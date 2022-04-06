@@ -85,6 +85,10 @@ if [[ -d "$RBENV_ROOT/bin" ]]; then
     export PATH="$PATH:$RBENV_ROOT/bin"
 fi
 
+if [[ -d "$HOME/.platformio/penv/bin" ]]; then
+    export PATH="$PATH:$HOME/.platformio/penv/bin"
+fi
+
 if [[ -d "$HOME/Library/Android/sdk" ]]; then
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export PATH="$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools"
@@ -138,3 +142,4 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 [ -s "$HOME/.cargo/env" ] && \. "$HOME/.cargo/env"
+
