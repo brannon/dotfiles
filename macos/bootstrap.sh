@@ -234,10 +234,12 @@ brew_install curl git jq rbenv ripgrep tree unzip vim wget zip
 operation_group "Configure dotfiles"
 git_clone_dotfiles_repo $DOTFILES_PATH
 file_backup $HOME/.bashrc
+file_backup $HOME/.gitignore
 file_backup $HOME/.vimrc
 file_backup $HOME/.inputrc
 file_backup $HOME/.zshrc
 file_link $DOTFILES_PATH/.bashrc $HOME/.bashrc
+file_link $DOTFILES_PATH/macos/.gitignore $HOME/.gitignore
 file_link $DOTFILES_PATH/macos/.vimrc $HOME/.vimrc
 file_link $DOTFILES_PATH/macos/.inputrc $HOME/.inputrc
 file_link $DOTFILES_PATH/macos/.zshrc $HOME/.zshrc
@@ -261,5 +263,12 @@ brew_install go nodejs
 
 bootstrap_done
 
-source $HOME/.bashrc
+if [ "$SHELL" == "/bin/zsh" ]; then
+    source $HOME/.zshrc
+elsif [ "$SHELL" == "/bin/bash" ]; then
+    source $HOME/.bashrc
+else
+    warn "Unknown shell $SHELL, not sourcing config"
+fi
+
 exit 0

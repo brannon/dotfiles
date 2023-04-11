@@ -143,6 +143,8 @@ fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+[ -f ~/.github-env ] && source ~/.github-env
+
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
