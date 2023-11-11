@@ -267,7 +267,7 @@ operation_group "Configure packages"
 #apt_update
 
 operation_group "Install basic packages"
-apt_install ca-certificates curl dnsutils git jq software-properties-common unzip vim wget zip
+apt_install ca-certificates curl dnsutils gh git jq software-properties-common unzip vim wget zip
 
 operation_group "Configure dotfiles"
 if [[ $CLONE == 1 ]]; then
