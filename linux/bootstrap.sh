@@ -303,7 +303,7 @@ apt_install python2.7
 apt_install sqlite3
 
 # Install Go
-GO_VERSION=1.18
+GO_VERSION=1.21
 operation "Install Golang $GO_VERSION"
 if [[ -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
