@@ -303,9 +303,9 @@ apt_install python2.7
 apt_install sqlite3
 
 # Install Go
-GO_VERSION=1.21
+GO_VERSION=1.21.4
 operation "Install Golang $GO_VERSION"
-if [[ -z $(go version | grep "$GO_VERSION") ]]; then
+if [[ -z $(which go) || -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
     curl https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz | SUDO tar -C /usr/local -xzf -
     operation_check_exit $?
