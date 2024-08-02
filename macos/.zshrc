@@ -75,6 +75,7 @@ source $ZSH/oh-my-zsh.sh
 # User configuration
 
 export TERM=xterm-256color
+export HOMEBREW_NO_INSTALL_CLEANUP=true
 
 # Configure ls colors
 if [[ "$(uname)" == "Darwin" ]]; then
@@ -141,8 +142,12 @@ if [[ ! -z $(whence -p rbenv) ]]; then
     eval "$(rbenv init -)"
 fi
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [[ -d "$HOME/.cargo" ]]; then
+    source "$HOME/.cargo/env"
+fi
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $(which virtualenvwrapper.sh) ] && source $(which virtualenvwrapper.sh)
 [ -f ~/.github-env ] && source ~/.github-env
 
 # export MANPATH="/usr/local/man:$MANPATH"
