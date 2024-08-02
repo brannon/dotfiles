@@ -147,7 +147,7 @@ if [[ -d "$HOME/.cargo" ]]; then
 fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-[ -f $(which virtualenvwrapper.sh) ] && source $(which virtualenvwrapper.sh)
+[ -f "$(which virtualenvwrapper.sh)" ] && source "$(which virtualenvwrapper.sh)"
 [ -f ~/.github-env ] && source ~/.github-env
 
 # export MANPATH="/usr/local/man:$MANPATH"
