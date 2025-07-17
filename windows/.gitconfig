@@ -2,7 +2,7 @@
 	name = brannon
 
 [core]
-	editor = vim
+	editor = edit
 
 [color]
 	ui = true
@@ -17,4 +17,3 @@
 	wipe = !git add -A && git commit -qm 'WIPE SAVEPOINT' && git reset HEAD~1 --hard
 	who = shortlog
 	hist = log --pretty=format:"%h %ad | %s%d [%an]" --graph --date=short
-
