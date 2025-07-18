@@ -298,12 +298,12 @@ operation_group "Install development tools"
 # Install build tools
 apt_install build-essential
 # Install Python
-apt_install python2.7
+apt_install python3-full
 # Install misc tools
 apt_install sqlite3
 
 # Install Go
-GO_VERSION=1.22.1
+GO_VERSION=1.24.5
 operation "Install Golang $GO_VERSION"
 if [[ -z $(which go) || -z $(go version | grep "$GO_VERSION") ]]; then
     [[ -d /usr/local/go ]] && SUDO rm -rf /usr/local/go
@@ -331,11 +331,6 @@ if [[ $INTERACTIVE == 1 ]]; then
         operation_check_exit $?
         SUDO apt-get install -y nodejs
         operation_check_exit $?
-    fi
-
-    # Python 3.9
-    if [[ $(prompt_yn "Install Python 3.9?") == "y" ]]; then
-        apt_install "Python 3.9" python3.9
     fi
 else
     warn "Skipped (non-interactive)"
