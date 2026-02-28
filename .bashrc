@@ -65,6 +65,10 @@ fi
 export GOPATH="$HOME/Source/go"
 export EDITOR=/usr/bin/vim
 
+if [[ -n $(which "msedit") ]]; then
+    export EDITOR="msedit"
+fi
+
 if [[ -d "$GOROOT" ]]; then
     export PATH="$PATH:$GOROOT/bin"
 fi
